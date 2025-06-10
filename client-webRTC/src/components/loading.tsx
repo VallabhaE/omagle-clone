@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-
+import { Room } from './room'
 const Loading = () => {
     const [joined, setJoined] = useState<boolean>(false)
 
@@ -31,7 +31,7 @@ const Loading = () => {
     }, [videoRef])
 
     if (!joined) {
-        return <div style={{display:'flex'}}>
+        return <div style={{ display: 'flex' }}>
             <video ref={videoRef}></video>
             <input type="text" onChange={(e) => {
                 setName(e.target.value);
@@ -44,7 +44,7 @@ const Loading = () => {
     }
 
     return (
-        <div>loading</div>
+        <Room name={name} localAudioTrack={localAudioTrace} localVideoTrack={localVideoTrace} />
     )
 }
 
