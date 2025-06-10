@@ -21,3 +21,7 @@ io.on('connection',(socket)=>{
         userManagement.removeUser(socket.id)
     })
 })
+
+server.listen(3000, () => {
+    console.log('listening on *:3000');
+});

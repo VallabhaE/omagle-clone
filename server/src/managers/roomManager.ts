@@ -64,6 +64,5 @@ export class RoomManager {
         }
         const receivingUser = room.user1.socket.id === senderSocketid ? room.user2 : room.user1;
         receivingUser.socket.emit(ADD_ICE_CANDIDATE, ({ candidate, type }));
-
     }
 }
