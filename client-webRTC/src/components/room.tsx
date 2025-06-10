@@ -29,24 +29,20 @@ export const Room = ({
     useEffect(() => {
         const socket = io(URL);
         socket.on('send-offer', async ({ roomId }) => {
-            console.log("sending offer");
             setLobby(false);
             const pc = new RTCPeerConnection();
 
             setSendingPc(pc);
             if (localVideoTrack) {
-                console.error("added tack");
                 console.log(localVideoTrack)
                 pc.addTrack(localVideoTrack)
             }
             if (localAudioTrack) {
-                console.error("added tack");
                 console.log(localAudioTrack)
                 pc.addTrack(localAudioTrack)
             }
 
             pc.onicecandidate = async (e) => {
-                console.log("receiving ice candidate locally");
                 if (e.candidate) {
                     socket.emit("add-ice-candidate", {
                         candidate: e.candidate,
@@ -57,7 +53,6 @@ export const Room = ({
             }
 
             pc.onnegotiationneeded = async () => {
-                console.log("on negotiation neeeded, sending offer");
                 const sdp = await pc.createOffer();
                 //@ts-ignore
                 pc.setLocalDescription(sdp)
@@ -69,7 +64,6 @@ export const Room = ({
         });
 
         socket.on("offer", async ({ roomId, sdp: remoteSdp }) => {
-            console.log("received offer");
             setLobby(false);
             const pc = new RTCPeerConnection();
             await pc.setRemoteDescription(remoteSdp)
